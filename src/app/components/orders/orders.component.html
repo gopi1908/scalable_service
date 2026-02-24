@@ -1,0 +1,25 @@
+<div class="card p-3">
+  <h4>Your Orders</h4>
+  <div *ngIf="orders.length === 0" class="text-muted">No orders yet</div>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let o of orders">
+      <div *ngIf="o.cart; else single">
+        <div class="mb-2"><strong>Cart order - {{o.date | date:'short'}}</strong></div>
+        <ul class="list-unstyled small">
+          <li *ngFor="let i of o.cart">{{i.name}} x {{i.qty}} — {{(i.price * i.qty)|currency:'INR':'symbol':'1.0-2'}}</li>
+        </ul>
+        <div class="text-end"><strong>Total: {{o._total | currency:'INR':'symbol':'1.0-2'}}</strong></div>
+      </div>
+      <ng-template #single>
+        <div class="d-flex justify-content-between">
+          <div>
+            <strong>{{o.item.name}}</strong>
+            <div class="text-muted small">{{o.date | date:'short'}}</div>
+          </div>
+          <div>{{o.item.price | currency:'INR':'symbol':'1.0-2'}}</div>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+  <a class="btn btn-link mt-3" routerLink="/dashboard">Back to Dashboard</a>
+</div>

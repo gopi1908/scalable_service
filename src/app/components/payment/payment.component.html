@@ -1,0 +1,28 @@
+<div class="card p-3">
+  <div *ngIf="cart; else single">
+    <h4>Pay for Cart</h4>
+    <ul class="list-group mb-3">
+      <li class="list-group-item d-flex justify-content-between" *ngFor="let it of cart">
+        <div>{{it.name}} x {{it.qty}}</div>
+        <div>{{(it.price * it.qty) | currency:'INR':'symbol':'1.0-2'}}</div>
+      </li>
+    </ul>
+    <div class="mb-3"><strong>Total: {{cartTotal | currency:'INR':'symbol':'1.0-2'}}</strong></div>
+  </div>
+  <ng-template #single>
+    <div *ngIf="item">
+      <h4>Pay for {{item.name}}</h4>
+      <p class="text-muted">Amount: {{item.price | currency:'INR':'symbol':'1.0-2'}}</p>
+    </div>
+  </ng-template>
+
+  <div class="mb-3">
+    <label class="form-label">Name on Card</label>
+    <input class="form-control" [(ngModel)]="name">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Card Number</label>
+    <input class="form-control" [(ngModel)]="card">
+  </div>
+  <button class="btn btn-success" (click)="pay()">Pay (Dummy)</button>
+</div>
